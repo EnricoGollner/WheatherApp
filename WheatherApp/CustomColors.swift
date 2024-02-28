@@ -9,4 +9,6 @@ import UIKit
 
 class CustomColors {
     static let primaryColor: UIColor = UIColor(named: "primaryColor")!
+    static let contrastColor: UIColor = UIColor(named: "contrastColor")!
+    static let softGrayColor: UIColor = UIColor(named: "softGrayColor")!
 }
