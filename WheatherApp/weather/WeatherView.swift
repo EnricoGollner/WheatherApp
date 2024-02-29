@@ -32,7 +32,7 @@ class WeatherView: UIView {
         label.text = "São Paulo"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .medium)
-        label.textColor = CustomColors.primaryColor
+        label.textColor = UIColor.primaryColor
         
         return label
     }()
@@ -43,7 +43,7 @@ class WeatherView: UIView {
         label.text = "25°C"
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 70, weight: .bold)
-        label.textColor = CustomColors.primaryColor
+        label.textColor = UIColor.primaryColor
         
         return label
     }()
@@ -69,7 +69,7 @@ class WeatherView: UIView {
             bottom: 12,
             trailing: 20
         )
-        stackView.backgroundColor = CustomColors.softGrayColor
+        stackView.backgroundColor = UIColor.softGrayColor
         stackView.layer.cornerRadius = 10
         
         return stackView
@@ -88,7 +88,7 @@ class WeatherView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Umidade"
         label.font = .systemFont(ofSize: 12, weight: .semibold)
-        label.textColor = CustomColors.contrastColor
+        label.textColor = UIColor.contrastColor
         
         return label
     }()
@@ -98,7 +98,7 @@ class WeatherView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "1000mm"
         label.font = .systemFont(ofSize: 12, weight: .semibold)
-        label.textColor = CustomColors.contrastColor
+        label.textColor = UIColor.contrastColor
         
         return label
     }()
@@ -116,7 +116,7 @@ class WeatherView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Vento"
         label.font = .systemFont(ofSize: 12, weight: .semibold)
-        label.textColor = CustomColors.contrastColor
+        label.textColor = UIColor.contrastColor
         
         return label
     }()
@@ -126,7 +126,7 @@ class WeatherView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "10Km/h"
         label.font = .systemFont(ofSize: 12, weight: .semibold)
-        label.textColor = CustomColors.contrastColor
+        label.textColor = UIColor.contrastColor
         
         return label
     }()
@@ -137,7 +137,7 @@ class WeatherView: UIView {
         label.text = "PREVISÃO POR HORA"
         label.font = .systemFont(ofSize: 12, weight: .semibold)
         label.textAlignment = .center
-        label.textColor = CustomColors.contrastColor
+        label.textColor = UIColor.contrastColor
         
         return label
     }()
@@ -150,10 +150,16 @@ class WeatherView: UIView {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .red
+        collectionView.register(HourlyCollectionViewCell.self, forCellWithReuseIdentifier: HourlyCollectionViewCell.identifier)
+        collectionView.showsHorizontalScrollIndicator = false
         
         return collectionView
     }()
+    
+    public func configCollectionView(delegate: UICollectionViewDelegate, dataSource: UICollectionViewDataSource) {
+        hourlyCollectionView.delegate = delegate
+        hourlyCollectionView.dataSource = dataSource
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -221,8 +227,6 @@ class WeatherView: UIView {
             hourlyCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             hourlyCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             hourlyCollectionView.heightAnchor.constraint(equalToConstant: 84),
-
-            
         ])
     }
 

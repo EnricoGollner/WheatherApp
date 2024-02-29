@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CustomColors {
+extension UIColor {
     static let primaryColor: UIColor = UIColor(named: "primaryColor")!
     static let contrastColor: UIColor = UIColor(named: "contrastColor")!
     static let softGrayColor: UIColor = UIColor(named: "softGrayColor")!
