@@ -65,9 +65,9 @@ class WeatherView: UIView {
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(
             top: 12,
-            leading: 24,
+            leading: 20,
             bottom: 12,
-            trailing: 24
+            trailing: 20
         )
         stackView.backgroundColor = CustomColors.softGrayColor
         stackView.layer.cornerRadius = 10
@@ -131,6 +131,30 @@ class WeatherView: UIView {
         return label
     }()
     
+    private lazy var hourlyForecastLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "PREVISÃO POR HORA"
+        label.font = .systemFont(ofSize: 12, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = CustomColors.contrastColor
+        
+        return label
+    }()
+    
+    private lazy var hourlyCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 67, height: 84)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .red
+        
+        return collectionView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
@@ -146,13 +170,17 @@ class WeatherView: UIView {
     }
     
     private func setHierarchy() {
-        self.addSubview(backgroundView)
-        self.addSubview(headerView)
+        addSubview(backgroundView)
+        
+        addSubview(headerView)
         headerView.addSubview(cityLabel)
         headerView.addSubview(temperatureLabel)
         headerView.addSubview(weatherIcon)
         
         addSubview(statsStackView)
+        
+        addSubview(hourlyForecastLabel)
+        addSubview(hourlyCollectionView)
     }
     
     private func setConstraints() {
@@ -184,6 +212,17 @@ class WeatherView: UIView {
             statsStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
             statsStackView.widthAnchor.constraint(equalToConstant: 210),
             statsStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            hourlyForecastLabel.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 29),
+            hourlyForecastLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35),
+            hourlyForecastLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -35),
+            
+            hourlyCollectionView.topAnchor.constraint(equalTo: hourlyForecastLabel.bottomAnchor, constant: 22),
+            hourlyCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            hourlyCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            hourlyCollectionView.heightAnchor.constraint(equalToConstant: 84),
+
+            
         ])
     }
 
