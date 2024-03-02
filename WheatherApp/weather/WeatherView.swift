@@ -225,17 +225,17 @@ class WeatherView: UIView {
             backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
             backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
-            self.headerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
+            headerView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
             headerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35),
             headerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -35),
-            headerView.heightAnchor.constraint(equalToConstant: 170),
+            headerView.heightAnchor.constraint(equalToConstant: 150),
             
             cityLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 15),
             cityLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 15),
             cityLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -15),
             cityLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 20),
+            temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 12),
             temperatureLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 26),
             
             weatherIcon.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -26),
@@ -246,7 +246,7 @@ class WeatherView: UIView {
             
             statsStackView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
             statsStackView.widthAnchor.constraint(equalToConstant: 210),
-            statsStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            statsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             hourlyForecastLabel.topAnchor.constraint(equalTo: statsStackView.bottomAnchor, constant: 29),
             hourlyForecastLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35),
@@ -261,7 +261,7 @@ class WeatherView: UIView {
             dailyForecastLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35),
             dailyForecastLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -35),
             
-            dailyForecastTableView.topAnchor.constraint(equalTo: dailyForecastLabel.bottomAnchor, constant: 30),
+            dailyForecastTableView.topAnchor.constraint(equalTo: dailyForecastLabel.bottomAnchor, constant: 16),
             dailyForecastTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             dailyForecastTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
             dailyForecastTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
