@@ -162,6 +162,31 @@ class WeatherView: UIView {
         hourlyCollectionView.dataSource = dataSource
     }
     
+    private lazy var dailyForecastLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "PRÓXIMOS DIAS"
+        label.font = .systemFont(ofSize: 12, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = UIColor.contrastColor
+        
+        return label
+    }()
+    
+    private lazy var dailyForecastTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .clear
+        tableView.register(DailyForecastTableViewCell.self, forCellReuseIdentifier: DailyForecastTableViewCell.identifier)
+        
+        return tableView
+    }()
+    
+    public func configTableView(delegate: UITableViewDelegate, dataSource: UITableViewDataSource) {
+        self.dailyForecastTableView.delegate = delegate
+        self.dailyForecastTableView.dataSource = dataSource
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpView()
@@ -188,6 +213,9 @@ class WeatherView: UIView {
         
         addSubview(hourlyForecastLabel)
         addSubview(hourlyCollectionView)
+        
+        addSubview(dailyForecastLabel)
+        addSubview(dailyForecastTableView)
     }
     
     private func setConstraints() {
@@ -228,6 +256,15 @@ class WeatherView: UIView {
             hourlyCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             hourlyCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             hourlyCollectionView.heightAnchor.constraint(equalToConstant: 84),
+            
+            dailyForecastLabel.topAnchor.constraint(equalTo: hourlyCollectionView.bottomAnchor, constant: 29),
+            dailyForecastLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35),
+            dailyForecastLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -35),
+            
+            dailyForecastTableView.topAnchor.constraint(equalTo: dailyForecastLabel.bottomAnchor, constant: 30),
+            dailyForecastTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            dailyForecastTableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            dailyForecastTableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 
