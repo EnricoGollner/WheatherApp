@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIColor {
-    static let primaryColor: UIColor = UIColor(named: "primaryColor")!
-    static let contrastColor: UIColor = UIColor(named: "contrastColor")!
-    static let softGrayColor: UIColor = UIColor(named: "softGrayColor")!
+    static let primaryColor = UIColor(named: "primaryColor")
+    static let contrastColor = UIColor(named: "contrastColor")
+    static let softGrayColor = UIColor(named: "softGrayColor")
 }

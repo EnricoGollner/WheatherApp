@@ -151,6 +151,7 @@ class WeatherView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(HourlyCollectionViewCell.self, forCellWithReuseIdentifier: HourlyCollectionViewCell.identifier)
+        collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
         
         return collectionView

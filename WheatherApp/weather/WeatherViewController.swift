@@ -35,6 +35,4 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
         
         return cell
     }
-    
-    
 }
