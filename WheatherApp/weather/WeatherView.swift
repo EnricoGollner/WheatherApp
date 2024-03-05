@@ -29,7 +29,6 @@ class WeatherView: UIView {
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "São Paulo"
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 20, weight: .medium)
         label.textColor = UIColor.primaryColor
@@ -40,7 +39,6 @@ class WeatherView: UIView {
     private lazy var temperatureLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "25°C"
         label.textAlignment = .left
         label.font = .systemFont(ofSize: 70, weight: .bold)
         label.textColor = UIColor.primaryColor
@@ -96,7 +94,6 @@ class WeatherView: UIView {
     private lazy var humidityValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1000mm"
         label.font = .systemFont(ofSize: 12, weight: .semibold)
         label.textColor = UIColor.contrastColor
         
@@ -124,7 +121,6 @@ class WeatherView: UIView {
     private lazy var windValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "10Km/h"
         label.font = .systemFont(ofSize: 12, weight: .semibold)
         label.textColor = UIColor.contrastColor
         
@@ -196,6 +192,13 @@ class WeatherView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func setUpData(cityName: String, temperature: String, weatherIconName: String, humidity: String, windVelocity: String) {
+        cityLabel.text = cityName
+        temperatureLabel.text = temperature
+        humidityValueLabel.text = humidity
+        windValueLabel.text = windVelocity
+    }
+    
     private func setUpView() {
         self.setHierarchy()
         self.setConstraints()
@@ -236,11 +239,12 @@ class WeatherView: UIView {
             cityLabel.heightAnchor.constraint(equalToConstant: 20),
             
             temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 12),
-            temperatureLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 26),
+            temperatureLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 18),
+            temperatureLabel.heightAnchor.constraint(equalToConstant: 71),
             
-            weatherIcon.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -26),
+            weatherIcon.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -18),
             weatherIcon.centerYAnchor.constraint(equalTo: temperatureLabel.centerYAnchor),
-            weatherIcon.leadingAnchor.constraint(equalTo: temperatureLabel.trailingAnchor, constant: 15),
+            weatherIcon.leadingAnchor.constraint(equalTo: temperatureLabel.trailingAnchor, constant: 8),
             weatherIcon.heightAnchor.constraint(equalToConstant: 86),
             weatherIcon.widthAnchor.constraint(equalToConstant: 86),
             
