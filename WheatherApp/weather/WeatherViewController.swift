@@ -24,23 +24,22 @@ class WeatherViewController: UIViewController {
     private var forecastResponse: ForecastResponse?
     
     private func fetchData() {
-        service.fetchData(city: city) { [weak self] response in
-            self?.forecastResponse = response
-            DispatchQueue.main.async {  // Changing from the background to the main thread to update UI
+        service.fetchData(city: city) { [weak self] forecastResponse in
+            self?.forecastResponse = forecastResponse
+            DispatchQueue.main.async {
                 self?.loadData()
             }
         }
     }
     
     private func loadData() {
-        let temperature = Int(forecastResponse?.current.temp ?? 0)
-        
         self.weatherView.setUpData(
             cityName: city.name,
-            temperature: "\(temperature)°C",
+            temperature: forecastResponse?.current.temp.toCelsius(),
             weatherIconName: "",
             humidity: "\(forecastResponse?.current.humidity ?? 0)mm",
-            windVelocity: "\(forecastResponse?.current.windSpeed ?? 0)km/h"
+            windVelocity: "\(forecastResponse?.current.windSpeed ?? 0)km/h",
+            backgroundIconName: forecastResponse?.current.dt.isDayTime() ?? true ? "background-day" : "background-night"
         )
     }
     
@@ -56,11 +55,20 @@ class WeatherViewController: UIViewController {
 
 extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return forecastResponse?.hourly.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCollectionViewCell.identifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCollectionViewCell.identifier, for: indexPath) as? HourlyCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        let forecast = forecastResponse?.hourly[indexPath.row]
+        cell.setUpData(
+            time: forecast?.dt.toHourFormat(),
+            iconImageName: forecast?.weather.first?.icon,
+            temperature: forecast?.temp.toCelsius()
+        )
         
         return cell
     }
@@ -68,11 +76,26 @@ extension WeatherViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return forecastResponse?.daily.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DailyForecastTableViewCell.identifier, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyForecastTableViewCell.identifier, for: indexPath) as? DailyForecastTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let forecast = forecastResponse?.daily[indexPath.row]
+        cell.setUpData(
+            weekDay: forecast?.dt.toWeekdayName().uppercased(),
+            min: forecast?.temp.min.toCelsius(),
+            max: forecast?.temp.max.toCelsius(),
+            iconName: forecast?.weather.first?.icon
+        )
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
     }
 }

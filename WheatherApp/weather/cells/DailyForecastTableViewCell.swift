@@ -13,7 +13,6 @@ class DailyForecastTableViewCell: UITableViewCell {
     private lazy var weekDayLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "TER"
         label.textColor = UIColor.contrastColor
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         
@@ -23,7 +22,6 @@ class DailyForecastTableViewCell: UITableViewCell {
     private lazy var minTemperatureLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "min 25°C"
         label.textColor = UIColor.contrastColor
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         
@@ -33,7 +31,6 @@ class DailyForecastTableViewCell: UITableViewCell {
     private lazy var maxTemperatureLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "max 30°C"
         label.textColor = UIColor.contrastColor
         label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         
@@ -43,7 +40,6 @@ class DailyForecastTableViewCell: UITableViewCell {
     private lazy var iconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "cloudIcon")
         imageView.contentMode = .scaleAspectFit
         
         return imageView
@@ -69,6 +65,13 @@ class DailyForecastTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func setUpData(weekDay: String?, min: String?, max: String?, iconName: String?) {
+        self.weekDayLabel.text = weekDay
+        self.minTemperatureLabel.text = "min \(min ?? "")"
+        self.maxTemperatureLabel.text = "max \(max ?? "")"
+        self.iconImageView.image = UIImage(named: iconName ?? "")
+    }
+    
     private func setUpView() {
         self.backgroundColor = .clear
         self.selectionStyle = .none
@@ -80,7 +83,7 @@ class DailyForecastTableViewCell: UITableViewCell {
         contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            weekDayLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 50),
+            weekDayLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 50)
         ])
     }
     

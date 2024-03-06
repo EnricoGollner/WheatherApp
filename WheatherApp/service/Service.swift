@@ -9,7 +9,7 @@ import Foundation
 
 class Service {
     private let baseURL = "https://api.openweathermap.org/data/3.0/onecall"
-    private let apiKey: String = "OPEN WEATHER API KEY HERE"
+    private let apiKey: String = "YOUR API KEY HERE - OPENWEATHER"
     
     private let session = URLSession.shared
     
@@ -17,7 +17,7 @@ class Service {
         let urlString = "\(baseURL)?lat=\(city.lat)&long=\(city.long)&appid=\(apiKey)&units=metric"
         
         guard let url = URL(string: urlString) else {
-            print("Invalid URL informed.")
+            print("Invalid URL informed")
             return
         }
         

@@ -11,11 +11,11 @@ import Foundation
 struct ForecastResponse: Codable {
     let current: Forecast
     let hourly: [Forecast]
-    let DailyForecast: [DailyForecast]
+    let daily: [DailyForecast]
     let moonPhase: String
 
     enum CodingKeys: String, CodingKey {
-        case current, hourly, DailyForecast
+        case current, hourly, daily
         case moonPhase = "moon_phase"
     }
 }

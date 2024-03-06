@@ -11,7 +11,6 @@ class WeatherView: UIView {
     private lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "background")
         imageView.contentMode = .scaleAspectFill
         
         return imageView
@@ -192,11 +191,17 @@ class WeatherView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func setUpData(cityName: String, temperature: String, weatherIconName: String, humidity: String, windVelocity: String) {
+    public func setUpData(cityName: String, temperature: String?, weatherIconName: String, humidity: String, windVelocity: String, backgroundIconName: String?) {
         cityLabel.text = cityName
         temperatureLabel.text = temperature
         humidityValueLabel.text = humidity
         windValueLabel.text = windVelocity
+        
+        hourlyCollectionView.reloadData()
+        dailyForecastTableView.reloadData()
+        
+        
+        backgroundView.image = UIImage(named: backgroundIconName ?? "")
     }
     
     private func setUpView() {
